@@ -1,0 +1,22 @@
+<!--pages/home/home.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{articalName}}</view>
+    <view class="weui-media-box__info">
+      <view class="weui-media-box__info__meta">{{author}}</view>
+      <view class="weui-media-box__info__meta">{{publishTime}}</view>
+    </view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-grids">
+      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+        <image class="weui-grid__icon" src="../images/placeholder.png" />
+        <view class="weui-grid__label">Grid</view>
+      </navigator>
+      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+        <image class="weui-grid__icon" src="../images/placeholder.png" />
+        <view class="weui-grid__label">Grid</view>
+      </navigator>
+    </view>
+  </view>
+</view>

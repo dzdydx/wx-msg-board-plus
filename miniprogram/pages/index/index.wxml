@@ -1,0 +1,62 @@
+<!--index.wxml-->
+
+<!-- Global Container -->
+<view class="page">
+  <!-- 文章信息区 -->
+  <view class="weui-panel">
+    <view class="weui-panel__hd">{{accountName}}
+    <button class="btn btn-writeComment" wx:if="{{logged}}" bindtap="goWriteComment">写留言
+    </button>
+    <button class="btn btn-login" wx:else open-type="getUserInfo" bindgetuserinfo="loginAuth">授权登录</button>
+    </view>
+    
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">{{articalName}}</view>
+        <!-- <view class="artical-like">
+          <text class="artical-like-count">{{articalLikes}}</text>
+          <icon class="artical-like-icon">like</icon>
+        </view> -->
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">{{author}}</view>
+          <view class="weui-media-box__info__meta">{{publishTime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 留言区 -->
+  <view class="page__bd">
+    <!-- 分隔栏/选项 -->
+    <view class="msg-panel">
+      <view class="msg-count">留言数：{{commentsCount}}条</view>
+      <view class="msg-display">按时间排序</view>
+    </view>
+
+    <!-- 留言列表 -->
+    <view class="msg-board">
+      <block wx:for="{{comments}}" wx:key="commentID">
+        <view class="msg-item">
+          <view class="msg-user-avatar">
+            <image class="weui-media-box__thumb" src="{{item.avatar}}" />
+          </view>
+          <view class="msg-user">
+            <view class="msg-user-name">{{item.userName}}</view>
+            <view class="msg-user-time">{{item.time}}</view>
+            <view class="msg-user-content">{{item.content}}</view>
+          </view>
+          <!-- <view class="msg-like">
+            <text class="msg-like-count">{{item.likes}}</text>
+            <icon class="msg-like-icon">like</icon>
+          </view> -->
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 页脚 -->
+  <view class="page__ft">
+  </view>
+</view>
+
+<!-- 留言模板 -->
