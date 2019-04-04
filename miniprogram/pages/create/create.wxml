@@ -1,0 +1,95 @@
+<!--pages/create/create.wxml-->
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">生成留言板</view>
+  </view>
+  <view class="page__bd">
+    <form bindsubmit="bindFormSubmit">
+      <view class="weui-cells__title">公众号信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">公众号名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="例：一笑缘" name="accountName" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode">
+          <view class="weui-cell__hd">
+            <view class="weui-label">公众号微信号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="例：talklightly" name="account" />
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">文章信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">文章名</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入文章名" name="articalName" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">作者</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入作者名" name="author" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发布日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="date" value="{{date}}" start="2005-01-01" end="2020-09-01" bindchange="bindDateChange"  name="date">
+              <view class="weui-input">{{date}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发布时间</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"  name="time">
+              <view class="weui-input">{{time}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_switch">
+            <view class="weui-cell__bd">允许匿名留言</view>
+            <view class="weui-cell__ft">
+              <switch name="anonymous"/>
+            </view>
+          </view>
+        </view>
+        <view class="weui-btn-area">
+          <button class="weui-btn" type="primary" form-type="submit" loading='{{loading}}'>生成</button>
+        </view>
+      </view>
+    </form>
+
+
+    <!-- <view class="weui-cells__title">表单报错</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input weui-cell_warn">
+        <view class="weui-cell__hd">
+          <view class="weui-label">卡号</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入卡号" />
+        </view>
+        <view class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+    </view> -->
+  </view>
+</view>

@@ -1,1 +1,28 @@
 /* pages/home/home.wxss */
+.grids {
+  display: grid;
+  grid-template-columns: [c1] 50% [c2] 50% [c3];
+  grid-template-rows: 50% 50%;
+  justify-items: self-start;
+  border-top: 1rpx solid #d9d9d9;
+  border-left: 1rpx solid #d9d9d9;
+}
+
+.grid {
+  grid-row: 2 / 3;
+  padding: 20px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border-right: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+}
+
+.grid-3 {
+  grid-column: c1 / c3;
+  grid-row: 1 / 2;
+  width: 100%;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-right: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+}

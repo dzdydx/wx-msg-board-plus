@@ -1,22 +1,21 @@
 <!--pages/home/home.wxml-->
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">{{articalName}}</view>
-    <view class="weui-media-box__info">
-      <view class="weui-media-box__info__meta">{{author}}</view>
-      <view class="weui-media-box__info__meta">{{publishTime}}</view>
-    </view>
+    <view class="page__title">简单留言板</view>
+    <view class="page__desc">为公众号文章提供留言及管理功能</view>
   </view>
   <view class="page__bd">
-    <view class="weui-grids">
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/placeholder.png" />
-        <view class="weui-grid__label">Grid</view>
+    <view class="grids">
+      <navigator url="/pages/create/create" class="grid-3" hover-class="weui-grid_active">
+        <image class="weui-grid__icon" src="../images/msgboard.png" />
+        <view class="weui-grid__label">生成留言板</view>
       </navigator>
-      <navigator url="" class="weui-grid" hover-class="weui-grid_active">
-        <image class="weui-grid__icon" src="../images/placeholder.png" />
-        <view class="weui-grid__label">Grid</view>
-      </navigator>
+      <block wx:for="{{grids}}" wx:key="grid">
+        <navigator url="{{item.url}}" class="grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../images/{{item.img}}" />
+          <view class="weui-grid__label">{{item.name}}</view>
+        </navigator>
+      </block>
     </view>
   </view>
 </view>

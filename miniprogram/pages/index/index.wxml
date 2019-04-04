@@ -19,7 +19,7 @@
         </view> -->
         <view class="weui-media-box__info">
           <view class="weui-media-box__info__meta">{{author}}</view>
-          <view class="weui-media-box__info__meta">{{publishTime}}</view>
+          <view class="weui-media-box__info__meta">{{time}}</view>
         </view>
       </view>
     </view>

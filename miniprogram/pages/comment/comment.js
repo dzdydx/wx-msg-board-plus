@@ -1,9 +1,11 @@
 // pages/comment/comment.js
 
-const app = getApp()
-const db = wx.cloud.database()
-const articals = db.collection('articals')
-const comments = db.collection('comments')
+const app = getApp();
+const db = wx.cloud.database();
+const articals = db.collection('articals');
+const comments = db.collection('comments');
+
+let anonymous = false;
 
 Page({
 
@@ -11,9 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    account: app.globalData.articalInfo.accountName,
     count: 0,
-    loading: false
+    loading: false,
   },
 
   countInput: function(e) {
@@ -30,14 +31,30 @@ Page({
 
     let that = this
     const _ = db.command
-    let newComment = {
-      avatar: app.globalData.userInfo.avatar,
-      content: e.detail.value.textarea,
-      likes: 0,
-      time: new Date().toLocaleString(),
-      userID: app.globalData.userInfo._openId,
-      userName: app.globalData.userInfo.userName,
-      articalId: app.globalData.articalInfo.articalId
+
+    let newComment;
+
+    if (e.detail.value.anonymous) {
+      newComment = {
+        avatar: "/pages/images/anonymous.jpg",
+        content: e.detail.value.textarea,
+        likes: 0,
+        time: new Date().toLocaleString(),
+        userID: app.globalData.userInfo._openId,
+        userName: "某甲",
+        articalId: app.globalData.articalInfo.articalId
+      }
+    } else {
+      newComment = {
+        avatar: app.globalData.userInfo.avatar,
+        content: e.detail.value.textarea,
+        likes: 0,
+        time: new Date().toLocaleString(),
+        userID: app.globalData.userInfo._openId,
+        userName: app.globalData.userInfo.userName,
+        articalId: app.globalData.articalInfo.articalId
+
+      }
     }
 
     comments.add({
@@ -60,7 +77,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    
   },
 
   /**
@@ -74,7 +91,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    anonymous = app.globalData.articalInfo.anonymous;
+    this.setData({
+      accountName: app.globalData.articalInfo.accountName,
+      anonymous: anonymous
+    });
   },
 
   /**

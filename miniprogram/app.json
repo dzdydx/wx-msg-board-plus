@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/home/home",
-    "pages/comment/comment"
+    "pages/create/create",
+    "pages/index/index",
+    "pages/comment/comment",
+    "pages/generate/generate"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -10,5 +12,24 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "简单留言板",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "pages/images/home-filled.png",
+        "iconPath": "pages/images/home.png",
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "pages/images/user-filled.png",
+        "iconPath": "pages/images/user.png",
+        "pagePath": "pages/home/home",
+        "text": "我"
+      }
+    ]
   }
 }

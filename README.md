@@ -1,12 +1,27 @@
-# 云开发 quickstart
+# SimpleMessageBoard
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
+简单留言板，为新注册的没有留言功能的微信公众号准备。
+A simple, private message board for WeChat official accounts.
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+----
 
-## 参考文档
+## Usage
+// TODO
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+----
 
+## Changelog
+
+2019-4-3 19:56:44 - v0.0.1 beta
+1. 发布简单留言板的最初版本
+2. 支持针对文章的留言功能
+3. 支持根据公众号的文章列表访问留言区的功能
+
+----
+
+## TODO
+1. 点赞功能
+2. 小程序码生成，从文章页直接跳转
+3. 公众号入驻接口
+4. 为文章作者提供留言管理界面
+5. 我的留言界面

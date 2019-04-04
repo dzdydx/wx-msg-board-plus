@@ -1,0 +1,11 @@
+<!--pages/generate/generate.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">已生成留言板，您的留言板路径为：</view>
+    <view class="page__desc">pages/index/index?articalId={{articalId}}</view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <button class="weui-btn" type="primary"> 复制路径到剪贴板 </button>
+    <button class="weui-btn" type="default" bindtap="previewBoard"> 预览留言板页面 </button>
+  </view>
+</view>

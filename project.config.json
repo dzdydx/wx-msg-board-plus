@@ -6,11 +6,15 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false,
+		"uglifyFileName": false
 	},
 	"appid": "wx5c9cbe63e22d5c3a",
 	"projectname": "SimpleMessageBoard",
-	"libVersion": "2.2.5",
+	"libVersion": "2.6.4",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
