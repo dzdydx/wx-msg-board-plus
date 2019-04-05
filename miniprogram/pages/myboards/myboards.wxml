@@ -1,5 +1,5 @@
 <!--pages/myboards/myboards.wxml-->
-<view class="page__bd" wx:if="haveBoards">
+<view class="page__bd" wx:if="{{haveBoards}}">
   <view class="weui-panel">
     <view class="weui-panel__hd">我的留言板</view>
     <view class="weui-panel__bd">
@@ -24,7 +24,7 @@
   <view class="page__hd">
     <view class="page__title">还没有留言板，来生成一个吧</view>
   </view>
-  <view class="page__bd">
-    <navigator class="weui-btn" type="primary" url="/pages/create/create"></navigator>
+  <view class="page__bd page__bd_spacing">
+    <button class="weui-btn" type="primary" bindtap='goCreate'>生成</button>
   </view>
 </view>

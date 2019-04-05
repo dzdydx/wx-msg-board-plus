@@ -48,7 +48,11 @@ Page({
 
   onLoad: function(options) {
     console.log(options);
-    var articalId = decodeURIComponent(options.articalId);
+    if (options.articalId) {
+      var articalId = decodeURIComponent(options.articalId);
+    } else {
+      var articalId = app.globalData.articalInfo.articalId;
+    }
     console.log("articalID:" + articalId);
     wx.showToast({ // 显示Toast
       title: '载入评论中',
@@ -58,56 +62,42 @@ Page({
     let that = this;
     // 获取文章信息
 
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getData',
-      // 传给云函数的参数
-      data: {
-        collection: "articals",
-        option: {
-          _id: articalId
-        }
-      },
-    })
-      .then(res => {
-        let rst = res.result.data[0]
-        app.globalData.articalInfo = {
-          articalId: articalId,
-          account: rst.account,
-          accountName: rst.accountName,
-          //  articalLikes: rst.articalLikes, 下个版本添加此功能
-          articalName: rst.articalName,
-          author: rst.author,
-          time: rst.time,
-          anonymous: rst.anonymous
-        };
-        that.setData(app.globalData.articalInfo);
-        wx.hideToast();
+    db.collection('articals').where({
+        _id: articalId
       })
-      .catch(console.error)
+      .get({
+        success(res) {
+          let rst = res.data[0]
+          app.globalData.articalInfo = {
+            articalId: articalId,
+            account: rst.account,
+            accountName: rst.accountName,
+            //  articalLikes: rst.articalLikes, 下个版本添加此功能
+            articalName: rst.articalName,
+            author: rst.author,
+            time: rst.time,
+            anonymous: rst.anonymous
+          };
+          that.setData(app.globalData.articalInfo);
+          wx.hideToast();
+        }
+      })
 
     // 获取评论信息
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getData',
-      // 传给云函数的参数
-      data: {
-        collection: "comments",
-        option: {
-          articalId: articalId
-        }
-      },
-    })
-      .then(res => {
-        let rst = res.result
-        that.setData({
-          comments: rst.data,
-          commentsCount: rst.data.length
-        })
-        console.log(rst.data)
-        wx.hideToast()
+    db.collection('comments').where({
+        articalId: articalId
       })
-      .catch(console.error)
+      .get({
+        success(res) {
+          let rst = res
+          that.setData({
+            comments: rst.data,
+            commentsCount: rst.data.length
+          })
+          console.log(rst.data)
+          wx.hideToast()
+        }
+      })
   },
 
   onShow: function(options) {
@@ -125,27 +115,21 @@ Page({
         icon: 'loading',
         duration: 5000
       })
-      wx.cloud.callFunction({
-        // 云函数名称
-        name: 'getData',
-        // 传给云函数的参数
-        data: {
-          collection: "comments",
-          option: {
-            articalId: app.globalData.articalInfo.articalId
-          }
-        },
-      })
-        .then(res => {
-          let rst = res.result
-          that.setData({
-            comments: rst.data,
-            commentsCount: rst.data.length
-          })
-          console.log(rst.data)
-          wx.hideToast()
+
+      db.collection('comments').where({
+        articalId: app.globalData.articalInfo.articalId
         })
-        .catch(console.error)
+        .get({
+          success(res) {
+            let rst = res
+            that.setData({
+              comments: rst.data,
+              commentsCount: rst.data.length
+            })
+            console.log(rst.data)
+            wx.hideToast()
+          }
+        })
     }
   },
 
@@ -155,26 +139,19 @@ Page({
       icon: 'loading',
       duration: 5000
     })
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getData',
-      // 传给云函数的参数
-      data: {
-        collection: "comments",
-        option: {
-          articalId: articalId
-        }
-      },
-    })
-      .then(res => {
-        let rst = res.result
-        that.setData({
-          comments: rst.data,
-          commentsCount: rst.data.length
-        })
-        console.log(rst.data)
-        wx.hideToast()
+    db.collection('comments').where({
+        articalId: articalId
       })
-      .catch(console.error)
+      .get({
+        success(res) {
+          let rst = res
+          that.setData({
+            comments: rst.data,
+            commentsCount: rst.data.length
+          })
+          console.log(rst.data)
+          wx.hideToast()
+        }
+      })
   },
 })

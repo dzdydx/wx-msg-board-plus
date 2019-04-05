@@ -32,6 +32,7 @@ Page({
    */
   onShow: function () {
     var openId = app.globalData.userInfo._openId;
+    console.log("openID: " + openId);
     wx.showToast({ // 显示Toast
       title: '载入中',
       icon: 'loading',
@@ -39,34 +40,26 @@ Page({
     });
     let that = this;
     // 获取文章信息
-
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getData',
-      // 传给云函数的参数
-      data: {
-        collection: "articals",
-        option: {
-          _openId: openId
-        }
-      },
+    db.collection("articals").where({
+      _openid: openId
     })
-      .then(res => {
-        let rst = res.result;
-        console.log(res);
-        if (rst.data !== []) {
-          that.setData({
-            haveBoards: true,
-            boards: rst.data
-          });
-        } else {
-          that.setData({
-            haveBoards: false
-          });
+      .get({
+        success(res) {
+          let rst = res;
+          console.log(res);
+          if (rst.data.length !== 0) {
+            that.setData({
+              haveBoards: true,
+              boards: rst.data
+            });
+          } else {
+            that.setData({
+              haveBoards: false
+            });
+          }
+          wx.hideToast();
         }
-        wx.hideToast();
       })
-      .catch(console.error)
   },
 
   /**
@@ -94,33 +87,26 @@ Page({
     });
     let that = this;
     // 获取文章信息
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'getData',
-      // 传给云函数的参数
-      data: {
-        collection: "articals",
-        option: {
-          _openId: openId
-        }
-      },
+    db.collection('articals').where({
+      _openId: openId,
     })
-      .then(res => {
-        let rst = res.result;
-        console.log(res);
-        if (rst.data !== []) {
-          that.setData({
-            haveBoards: true,
-            boards: rst.data
-          });
-        } else {
-          that.setData({
-            haveBoards: false
-          });
+      .get({
+        success(res) {
+          let rst = res;
+          console.log(res);
+          if (rst.data !== []) {
+            that.setData({
+              haveBoards: true,
+              boards: rst.data
+            });
+          } else {
+            that.setData({
+              haveBoards: false
+            });
+          }
+          wx.hideToast();
         }
-        wx.hideToast();
       })
-      .catch(console.error)
   },
 
   /**
@@ -135,6 +121,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  goCreate: function() {
+    wx.redirectTo({
+      url: "/pages/create/create",
+    })
   },
 
   goToBoard: function (e) {
