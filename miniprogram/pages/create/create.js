@@ -113,7 +113,7 @@ Page({
       });
 
       // 跳转到指引页面
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/generate/generate?articalId=' + articalId,
       });
 

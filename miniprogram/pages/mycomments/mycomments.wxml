@@ -1,0 +1,25 @@
+<!--pages/mycomments/mycomments.wxml-->
+<view class="page__bd" wx:if="{{haveComments}}">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">我的留言</view>
+    <view class="weui-panel__bd">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text" wx:for="{{comments}}" wx:key="{{comments._id}}">
+          <view class="weui-media-box__title weui-media-box__title_in-text">在 {{item.accountName}} 的留言</view>
+          <view class="weui-media-box__desc" wx:if="{{item.anonymous}}">匿名</view>
+          <view class="weui-media-box__desc">{{item.time}}</view>
+          <view class="weui-media-box__desc">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="page" wx:else>
+  <view class="page__hd">
+    <view class="page__title">还没有留言，来生成自己的留言板吧</view>
+  </view>
+  <view class="page__bd page__bd_spacing">
+    <button class="weui-btn" type="primary" bindtap="goCreate">点击生成</button>
+  </view>
+</view>

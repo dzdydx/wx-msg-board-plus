@@ -15,19 +15,6 @@ Page({
       icon: 'loading',
       duration: 10000
     })
-    wx.cloud.callFunction({
-      name: "login",
-      data: {
-        userInfo: e
-      },
-      success: res => {
-        console.log(res)
-        app.globalData.userInfo._openId = res.result.event.userInfo.openId
-      },
-      fail: err => {
-        console.log(err)
-      }
-    })
     // 查看是否授权
     wx.getSetting({
       success(res) {
@@ -37,11 +24,12 @@ Page({
             success(res) {
               that.setData({
                 logged: true
-              })
-              wx.hideToast()
-              console.log(res.userInfo)
-              app.globalData.userInfo.avatar = res.userInfo.avatarUrl
-              app.globalData.userInfo.userName = res.userInfo.nickName
+              });
+              wx.hideToast();
+              console.log(res.userInfo);
+              app.globalData.userInfo.isLogged = true;
+              app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
+              app.globalData.userInfo.userName = res.userInfo.nickName;
             }
           })
         }
@@ -50,17 +38,18 @@ Page({
   },
 
   goWriteComment: function(e) {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/comment/comment',
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
-    })
+    });
   },
 
   onLoad: function(options) {
     console.log(options);
     var articalId = decodeURIComponent(options.articalId);
+    console.log("articalID:" + articalId);
     wx.showToast({ // 显示Toast
       title: '载入评论中',
       icon: 'loading',
@@ -68,43 +57,67 @@ Page({
     });
     let that = this;
     // 获取文章信息
-    db.collection('articals').where({
-      _id: articalId
-    }).get().then(res => {
-      let rst = res.data[0]
-      console.log(res.data)
-      app.globalData.articalInfo = {
-        articalId: articalId,
-        account: rst.account,
-        accountName: rst.accountName,
-      //  articalLikes: rst.articalLikes, 下个版本添加此功能
-        articalName: rst.articalName,
-        author: rst.author,
-        time: rst.time,
-        anonymous: rst.anonymous
-      };
 
-      console.log({a: "articalInfo:", b: app.globalData});
-      that.setData(app.globalData.articalInfo);
-      wx.hideToast();
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getData',
+      // 传给云函数的参数
+      data: {
+        collection: "articals",
+        option: {
+          _id: articalId
+        }
+      },
     })
+      .then(res => {
+        let rst = res.result.data[0]
+        app.globalData.articalInfo = {
+          articalId: articalId,
+          account: rst.account,
+          accountName: rst.accountName,
+          //  articalLikes: rst.articalLikes, 下个版本添加此功能
+          articalName: rst.articalName,
+          author: rst.author,
+          time: rst.time,
+          anonymous: rst.anonymous
+        };
+        that.setData(app.globalData.articalInfo);
+        wx.hideToast();
+      })
+      .catch(console.error)
 
     // 获取评论信息
-    db.collection('comments').where({
-        articalId: articalId
-      })
-      .get().then(res => {
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getData',
+      // 传给云函数的参数
+      data: {
+        collection: "comments",
+        option: {
+          articalId: articalId
+        }
+      },
+    })
+      .then(res => {
+        let rst = res.result
         that.setData({
-          comments: res.data,
-          commentsCount: res.data.length
+          comments: rst.data,
+          commentsCount: rst.data.length
         })
-        console.log(res.data)
+        console.log(rst.data)
         wx.hideToast()
-      });
+      })
+      .catch(console.error)
   },
 
-  onShow: function() {
+  onShow: function(options) {
     let that = this;
+
+    if (app.globalData.userInfo.isLogged) {
+      that.setData({
+        logged: true
+      });
+    }
 
     if (app.globalData.newSubmission) {
       wx.showToast({ // 显示Toast
@@ -112,18 +125,56 @@ Page({
         icon: 'loading',
         duration: 5000
       })
-      db.collection('comments').where({
-          articalId: app.globalData.articalInfo.articalId
-        })
-        .get().then(res => {
-          // res.data 是包含以上定义的两条记录的数组
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'getData',
+        // 传给云函数的参数
+        data: {
+          collection: "comments",
+          option: {
+            articalId: app.globalData.articalInfo.articalId
+          }
+        },
+      })
+        .then(res => {
+          let rst = res.result
           that.setData({
-            comments: res.data,
-            commentsCount: res.data.length
+            comments: rst.data,
+            commentsCount: rst.data.length
           })
-          console.log(res.data)
+          console.log(rst.data)
           wx.hideToast()
-        });
+        })
+        .catch(console.error)
     }
+  },
+
+  onPullDownRefresh: function() {
+    wx.showToast({ // 显示Toast
+      title: '载入评论中',
+      icon: 'loading',
+      duration: 5000
+    })
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getData',
+      // 传给云函数的参数
+      data: {
+        collection: "comments",
+        option: {
+          articalId: articalId
+        }
+      },
+    })
+      .then(res => {
+        let rst = res.result
+        that.setData({
+          comments: rst.data,
+          commentsCount: rst.data.length
+        })
+        console.log(rst.data)
+        wx.hideToast()
+      })
+      .catch(console.error)
   },
 })

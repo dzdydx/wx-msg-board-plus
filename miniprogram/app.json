@@ -4,7 +4,11 @@
     "pages/create/create",
     "pages/index/index",
     "pages/comment/comment",
-    "pages/generate/generate"
+    "pages/generate/generate",
+    "pages/me/me",
+    "pages/myboards/myboards",
+    "pages/mycomments/mycomments",
+    "pages/manageBoards/manageBoards"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -27,7 +31,7 @@
       {
         "selectedIconPath": "pages/images/user-filled.png",
         "iconPath": "pages/images/user.png",
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/me/me",
         "text": "我"
       }
     ]

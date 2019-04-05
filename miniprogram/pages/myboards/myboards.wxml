@@ -1,0 +1,30 @@
+<!--pages/myboards/myboards.wxml-->
+<view class="page__bd" wx:if="haveBoards">
+  <view class="weui-panel">
+    <view class="weui-panel__hd">我的留言板</view>
+    <view class="weui-panel__bd">
+      <block wx:for="{{boards}}" wx:key="{{boardId}}">
+        <view class="weui-media-box weui-media-box_text" bindtap="goToBoard" data-id="{{item._id}}">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{item.articalName}}</view>
+          <!-- <view class="artical-like">
+          <text class="artical-like-count">{{articalLikes}}</text>
+          <icon class="artical-like-icon">like</icon>
+        </view> -->
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta">{{item.author}}</view>
+            <view class="weui-media-box__info__meta">{{item.time}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+
+<view class="page" wx:else>
+  <view class="page__hd">
+    <view class="page__title">还没有留言板，来生成一个吧</view>
+  </view>
+  <view class="page__bd">
+    <navigator class="weui-btn" type="primary" url="/pages/create/create"></navigator>
+  </view>
+</view>

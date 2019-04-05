@@ -1,0 +1,118 @@
+/* pages/manageBoards/manageBoards.wxss */
+
+.btn {
+  color: #fff;
+  padding: 4px 15px;
+  border: 0;
+  border-radius: 0.2rem;
+  outline: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.428571;
+}
+
+.btn-login {
+  float: right;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.btn-writeComment {
+  float: right;
+  background-color: #6791BB;
+  border-color: #6791BB;
+}
+
+.artical-like {
+  float: right;
+  font-size: 15px;
+}
+
+.msg-panel {
+  width: 100%;
+  background-color: #DDD;
+  display: table;
+  content: "";
+  clear: both;
+}
+
+.msg-count {
+  font-weight: 300;
+  font-size: 13px;
+  color: #888;
+  float: left;
+  margin: 5px;
+}
+
+.msg-display {
+  font-weight: 300;
+  font-size: 13px;
+  color: #888;
+  float: right;
+  margin: 5px;
+}
+
+.msg-board {
+  padding: 10px;
+}
+
+.msg-item {
+  width: 95%;
+  padding-bottom: 50rpx;
+  display: grid;
+  grid-template-columns: [c1] 80px [c2] 65% [c3] 15% [c4];
+  grid-template-rows: 50% 50%;
+  grid-column-gap: 15rpx;
+  justify-items: self-start;
+}
+
+.msg-user-avatar {
+  justify-self: center;
+  height: 60px;
+  width: 60px;
+}
+
+.msg-like {
+  justify-self: start;
+  font-size: 15px;
+}
+
+.msg-user-name {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.msg-user-time {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  color:#cecece;
+  line-height: 1em;
+  list-style: none;
+  overflow: hidden;
+}
+
+.msg-user-content {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.msg-response {
+  grid-column: c2 / c3;
+  justify-self: stretch;
+  background-color: #EEE;
+  font-size: 13px;
+}
+
+.msg-response-text {
+  display: block;
+}
+
+.msg-response-user {
+  color: #6791BB;
+}
+
+.delete {
+  font-size: 13px;
+  color: #6791BB;
+}

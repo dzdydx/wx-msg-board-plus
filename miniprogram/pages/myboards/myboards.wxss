@@ -1,0 +1,6 @@
+/* pages/myboards/myboards.wxss */
+.cell-delete {
+  float: right;
+  font-size: 13px;
+  color: #6791BB;
+}

@@ -1,0 +1,54 @@
+<!--pages/manageBoards/manageBoards.wxml-->
+
+<!-- Global Container -->
+<view class="page">
+  <!-- 文章信息区 -->
+  <view class="page__hd">
+    <view class="page__title">留言板管理</view>
+    <view class="page__desc">所属文章：{{articalName}}</view>
+    <view class="page__desc">创建时间：{{time}}</view>
+    <button class="weui-btn" type="default" bindtap='goFrontPage' data-id="{{articalId}}">查看前台页面</button>
+  </view>
+
+  <!-- 留言区 -->
+  <view class="page__bd">
+    <!-- 分隔栏/选项 -->
+    <view class="msg-panel">
+      <view class="msg-count">留言数：{{commentsCount}}条</view>
+      <view class="msg-display">按时间排序</view>
+    </view>
+    <view class="weui-panel__ft">
+      <view class="weui-cell weui-cell_access weui-cell_link">
+        <view class="weui-cell__bd" bindtap="deleteBoard" data-id="{{articalId}}">删除留言板</view>
+      </view>
+    </view>
+
+    <!-- 留言列表 -->
+    <view class="msg-board">
+      <block wx:for="{{comments}}" wx:key="commentID">
+        <view class="msg-item">
+          <view class="msg-user-avatar">
+            <image class="weui-media-box__thumb" src="{{item.avatar}}" />
+          </view>
+          <view class="msg-user">
+            <view class="msg-user-name">{{item.userName}}</view>
+            <view class="msg-user-time">{{item.time}}</view>
+            <view class="msg-user-content">{{item.content}}</view>
+          </view>
+
+          <view class="msg-like">
+            <view class="delete" bindtap="deleteMessage" data-msgid="{{item._id}}">删除</view>
+            <!-- <text class="msg-like-count">{{item.likes}}</text>
+            <icon class="msg-like-icon">like</icon> -->
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 页脚 -->
+  <view class="page__ft">
+  </view>
+</view>
+
+<!-- 留言模板 -->

@@ -37,6 +37,8 @@ Page({
     if (e.detail.value.anonymous) {
       newComment = {
         avatar: "/pages/images/anonymous.jpg",
+        anonymous: true,
+        accountName: app.globalData.articalInfo.accountName,
         content: e.detail.value.textarea,
         likes: 0,
         time: new Date().toLocaleString(),
@@ -47,13 +49,14 @@ Page({
     } else {
       newComment = {
         avatar: app.globalData.userInfo.avatar,
+        anonymous: false,
         content: e.detail.value.textarea,
+        accountName: app.globalData.articalInfo.accountName,
         likes: 0,
         time: new Date().toLocaleString(),
         userID: app.globalData.userInfo._openId,
         userName: app.globalData.userInfo.userName,
         articalId: app.globalData.articalInfo.articalId
-
       }
     }
 
@@ -67,8 +70,8 @@ Page({
           loading: false
         })
         app.globalData.newSubmission = true
-        wx.navigateBack({
-          delta: 1
+        wx.redirectTo({
+          url: "/pages/index/index",
         })
       })
   },

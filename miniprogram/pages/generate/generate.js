@@ -73,7 +73,7 @@ Page({
 
   previewBoard: function () {
     console.log(articalId);
-    wx.navigateTo({
+    wx.redirectTo({
       url: "/pages/index/index?articalId=" + articalId,
     });
   }
