@@ -5,45 +5,45 @@ const db = wx.cloud.database()
 
 Page({
   data: {
-    logged: false
+
   },
 
   loginAuth: function(e) {
     let that = this;
-    wx.showToast({ // 显示Toast
-      title: '授权登录中',
-      icon: 'loading',
-      duration: 10000
-    })
     // 查看是否授权
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success(res) {
-              that.setData({
-                logged: true
-              });
-              wx.hideToast();
-              console.log(res.userInfo);
-              app.globalData.userInfo.isLogged = true;
-              app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
-              app.globalData.userInfo.userName = res.userInfo.nickName;
-            }
-          })
+    if (app.globalData.userInfo.isLogged) {
+      wx.redirectTo({
+        url: '/pages/comment/comment',
+        success: function (res) { },
+        fail: function (res) { },
+        complete: function (res) { },
+      });
+    } else {
+      wx.getSetting({
+        success(res) {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            wx.getUserInfo({
+              success(res) {
+                that.setData({
+                  logged: true
+                });
+                console.log(res.userInfo);
+                app.globalData.userInfo.isLogged = true;
+                app.globalData.userInfo.avatar = res.userInfo.avatarUrl;
+                app.globalData.userInfo.userName = res.userInfo.nickName;
+                wx.redirectTo({
+                  url: '/pages/comment/comment',
+                  success: function (res) { },
+                  fail: function (res) { },
+                  complete: function (res) { },
+                });
+              }
+            })
+          }
         }
-      }
-    })
-  },
-
-  goWriteComment: function(e) {
-    wx.redirectTo({
-      url: '/pages/comment/comment',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    });
+      })
+    }
   },
 
   onLoad: function(options) {
@@ -101,36 +101,7 @@ Page({
   },
 
   onShow: function(options) {
-    let that = this;
-
-    if (app.globalData.userInfo.isLogged) {
-      that.setData({
-        logged: true
-      });
-    }
-
-    if (app.globalData.newSubmission) {
-      wx.showToast({ // 显示Toast
-        title: '载入评论中',
-        icon: 'loading',
-        duration: 5000
-      })
-
-      db.collection('comments').where({
-        articalId: app.globalData.articalInfo.articalId
-        })
-        .get({
-          success(res) {
-            let rst = res
-            that.setData({
-              comments: rst.data,
-              commentsCount: rst.data.length
-            })
-            console.log(rst.data)
-            wx.hideToast()
-          }
-        })
-    }
+    
   },
 
   onPullDownRefresh: function() {

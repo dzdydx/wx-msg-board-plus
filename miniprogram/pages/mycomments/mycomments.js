@@ -39,25 +39,52 @@ Page({
     let that = this;
     // 获取评论信息
 
-    db.collection('comments').where({
-      userID: app.globalData.userInfo._openId
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'getData',
+      // 传给云函数的参数
+      data: {
+        collection: "comments",
+        options: {
+          userID: app.globalData.userInfo._openId
+        },
+      },
     })
-      .get({
-        success(res) {
-          console.log(res);
-          if (res.data.length > 0) {
-            that.setData({
-              haveComments: true,
-              comments: res.data
-            });
-          } else {
-            that.setData({
-              haveComments: false
-            });
-          }
-          wx.hideToast();
+      .then(res => {
+        console.log(res);
+        if (res.result.data.length > 0) {
+          that.setData({
+            haveComments: true,
+            comments: res.result.data
+          });
+        } else {
+          that.setData({
+            haveComments: false
+          });
         }
+        wx.hideToast();
       })
+      .catch(console.error)
+
+    // db.collection('comments').where({
+    //   userID: app.globalData.userInfo._openId
+    // })
+    //   .get({
+    //     success(res) {
+    //       console.log(res);
+    //       if (res.data.length > 0) {
+    //         that.setData({
+    //           haveComments: true,
+    //           comments: res.data
+    //         });
+    //       } else {
+    //         that.setData({
+    //           haveComments: false
+    //         });
+    //       }
+    //       wx.hideToast();
+    //     }
+    //   })
   },
 
   /**

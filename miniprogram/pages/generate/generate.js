@@ -76,5 +76,21 @@ Page({
     wx.redirectTo({
       url: "/pages/index/index?articalId=" + articalId,
     });
+  },
+
+  setClipboard: function (e) {
+    wx.setClipboardData({
+      data: "/pages/index/index?articalId=" + articalId,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            wx.showToast({
+              title: '复制成功！',
+              icon: 'success'
+            });
+          }
+        })
+      }
+    })
   }
 })

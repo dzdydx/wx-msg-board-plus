@@ -8,8 +8,7 @@ const MAX_LIMIT = 100
 // 云函数入口函数
 exports.main = async (event, context) => {
   // 先取出集合记录总数
-  const queryOptions = event.options
-  const countResult = await db.collection(event.collection).count()
+  const countResult = await db.collection(event.collection).where(event.options).count()
   if (countResult.total === 0) {
     return {data: [], evt: event};
   }
@@ -19,12 +18,12 @@ exports.main = async (event, context) => {
   // 承载所有读操作的 promise 的数组
   const tasks = []
   for (let i = 0; i < batchTimes; i++) {
-    const promise = db.collection(event.collection).where(queryOptions).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
+    const promise = db.collection(event.collection).where(event.options).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
   }
   // 等待所有
   return (await Promise.all(tasks)).reduce((acc, cur) => ({
     data: acc.data.concat(cur.data),
-    errMsg: acc.errMsg + "-" + queryOptions.toString()
+    errMsg: acc.errMsg
   }))
 }

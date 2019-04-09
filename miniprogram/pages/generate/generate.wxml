@@ -5,7 +5,7 @@
     <view class="page__desc">pages/index/index?articalId={{articalId}}</view>
   </view>
   <view class="page__bd page__bd_spacing">
-    <button class="weui-btn" type="primary"> 复制路径到剪贴板 </button>
+    <button class="weui-btn" type="primary" bindtap='setClipboard'> 复制路径到剪贴板 </button>
     <button class="weui-btn" type="default" bindtap="previewBoard"> 预览留言板页面 </button>
   </view>
 </view>

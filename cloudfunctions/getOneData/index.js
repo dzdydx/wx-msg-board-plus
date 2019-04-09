@@ -6,5 +6,6 @@ const db = cloud.database()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await db.collection(event.collection).where(event.options).get();
+  const countResult = await db.collection(event.collection).where(event.options).count();
+  return countResult.total;
 }

@@ -5,9 +5,7 @@
   <!-- 文章信息区 -->
   <view class="weui-panel">
     <view class="weui-panel__hd">{{accountName}}
-    <button class="btn btn-writeComment" wx:if="{{logged}}" bindtap="goWriteComment">写留言
-    </button>
-    <button class="btn btn-login" wx:else open-type="getUserInfo" bindgetuserinfo="loginAuth">授权登录</button>
+    <button class="btn btn-login" open-type="getUserInfo" bindgetuserinfo="loginAuth">写留言</button>
     </view>
     
     <view class="weui-panel__bd">
