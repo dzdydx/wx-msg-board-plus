@@ -25,6 +25,10 @@ Page({
   },
 
   bindFormSubmit: function(e) {
+    if (e.detail.value.textarea === "") {
+      return;
+    }
+
     this.setData({
       loading: true
     })

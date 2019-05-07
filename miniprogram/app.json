@@ -14,7 +14,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "简单留言板",
+    "navigationBarTitleText": "留言板+",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -35,5 +35,6 @@
         "text": "我"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

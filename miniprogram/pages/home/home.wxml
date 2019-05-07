@@ -1,8 +1,8 @@
 <!--pages/home/home.wxml-->
 <view class="page">
   <view class="page__hd">
-    <view class="page__title">简单留言板</view>
-    <view class="page__desc">为公众号文章提供留言及管理功能</view>
+    <view class="page__title">留言板+</view>
+    <view class="page__desc">简单 / 好用 / 你要的全都有</view>
   </view>
   <view class="page__bd">
     <view class="grids">

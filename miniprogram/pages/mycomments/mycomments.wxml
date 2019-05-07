@@ -5,9 +5,12 @@
     <view class="weui-panel__bd">
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_text" wx:for="{{comments}}" wx:key="{{comments._id}}">
-          <view class="weui-media-box__title weui-media-box__title_in-text">在 {{item.accountName}} 的留言</view>
-          <view class="weui-media-box__desc" wx:if="{{item.anonymous}}">匿名</view>
-          <view class="weui-media-box__desc">{{item.time}}</view>
+          <view class="weui-media-box__title weui-media-box__title_in-text">在 {{item.accountName}} 的留言
+            <view class="cell-anonymous" wx:if="{{item.anonymous}}">匿名</view>
+          </view>
+          <view class="weui-media-box__desc">{{item.time}}
+            <view class="cell-delete" bindtap="deleteComment" data-cmtid="{{item._id}}" >删除</view>
+          </view>
           <view class="weui-media-box__desc">{{item.content}}</view>
         </view>
       </view>
